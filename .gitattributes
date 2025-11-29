@@ -1,0 +1,4 @@
+*.html linguist-language=Ignore
+*.css linguist-language=Ignore
+*.js linguist-language=Node.js
+*.json linguist-language=Node.js
