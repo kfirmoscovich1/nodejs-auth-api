@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node.js REST API - Welcome</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+
+    .main-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 700px;
+      width: 100%;
+      overflow: hidden;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 50px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveBackground 20s linear infinite;
+    }
+
+    @keyframes moveBackground {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+
+    .card-header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header p {
+      margin: 0;
+      font-size: 1.1rem;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-body {
+      padding: 40px 30px;
+    }
+
+    .welcome-section {
+      margin-bottom: 35px;
+    }
+
+    .welcome-section h5 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .welcome-section p {
+      color: #666;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      padding: 10px 0;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: #28a745;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .base-url {
+      background: #f8f9fa;
+      padding: 12px 15px;
+      border-radius: 6px;
+      border-left: 4px solid #667eea;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .btn-primary-custom {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: block;
+    }
+
+    .btn-primary-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn-secondary-custom {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: block;
+    }
+
+    .btn-secondary-custom:hover {
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    .divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 25px 0;
+    }
+
+    .footer-text {
+      text-align: center;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    @media (max-width: 600px) {
+      .card-header {
+        padding: 40px 20px;
+      }
+
+      .card-header h1 {
+        font-size: 2rem;
+      }
+
+      .card-body {
+        padding: 25px 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-card">
+    <!-- Header -->
+    <div class="card-header">
+      <h1>🚀 Node.js REST API</h1>
+      <p>Professional Express API with MongoDB</p>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Welcome -->
+      <div class="welcome-section">
+        <h5>Welcome! 👋</h5>
+        <p>Production-ready REST API with JWT authentication and MongoDB integration. Explore the documentation to get
+          started with the API endpoints.</p>
+      </div>
+
+      <!-- Key Features -->
+      <div class="welcome-section">
+        <h5>Key Features ✨</h5>
+        <ul class="feature-list">
+          <li>JWT Authentication with secure token generation</li>
+          <li>Input Validation using Joi schemas</li>
+          <li>Security (Helmet, CORS, Rate Limiting)</li>
+          <li>MongoDB Integration with Mongoose ODM</li>
+          <li>Comprehensive Error Handling</li>
+          <li>Professional Error Logging</li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Base URL -->
+      <div class="welcome-section">
+        <h5>Base URL 🔗</h5>
+        <div class="base-url">http://localhost:3000/api</div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <a href="/documentation.html" class="btn-primary-custom">📖 View Full API Documentation</a>
+        <a href="https://github.com/kfirmoscovich1/nodejs-auth-api" target="_blank" class="btn-secondary-custom">💻 View
+          on GitHub</a>
+      </div>
+
+      <div class="footer-text">
+        Built with ❤️ using Node.js, Express & MongoDB
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
